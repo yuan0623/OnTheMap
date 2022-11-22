@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
         usernameTextField.text = ""
         passwordTextField.text = ""
         activityIndicator.isHidden = true
+        print("log in loaded.")
     }
     
 

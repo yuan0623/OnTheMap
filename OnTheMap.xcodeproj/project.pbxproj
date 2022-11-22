@@ -17,6 +17,10 @@
 		FF6B30C3291AC087000C997A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6B30C1291AC087000C997A /* Main.storyboard */; };
 		FF6B30C5291AC08C000C997A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF6B30C4291AC08C000C997A /* Assets.xcassets */; };
 		FF6B30C8291AC08C000C997A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF6B30C6291AC08C000C997A /* LaunchScreen.storyboard */; };
+		FFA98775292C2B6800ECF7BC /* getStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA98774292C2B6800ECF7BC /* getStudentLocationResponse.swift */; };
+		FFA98777292C778700ECF7BC /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA98776292C778700ECF7BC /* AddLocationViewController.swift */; };
+		FFB8D290292BE27B00B49A37 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8D28F292BE27B00B49A37 /* MapViewController.swift */; };
+		FFD04ED1292BE59C00C5ADE8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD04ED0292BE59C00C5ADE8 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		FF6B30C4291AC08C000C997A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF6B30C7291AC08C000C997A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF6B30C9291AC08C000C997A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFA98774292C2B6800ECF7BC /* getStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getStudentLocationResponse.swift; sourceTree = "<group>"; };
+		FFA98776292C778700ECF7BC /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
+		FFB8D28F292BE27B00B49A37 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FFD04ED0292BE59C00C5ADE8 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,9 @@
 			isa = PBXGroup;
 			children = (
 				FF6B30BF291AC087000C997A /* LoginViewController.swift */,
+				FFB8D28F292BE27B00B49A37 /* MapViewController.swift */,
+				FFD04ED0292BE59C00C5ADE8 /* TableViewController.swift */,
+				FFA98776292C778700ECF7BC /* AddLocationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -91,6 +102,7 @@
 				FF1C08CE291B09B400EEC604 /* UdacityResponse.swift */,
 				FF0A748A2926BE0500EEBA4D /* loginFailResponse.swift */,
 				FF0A748C2926C04800EEBA4D /* loginSucessResponse.swift */,
+				FFA98774292C2B6800ECF7BC /* getStudentLocationResponse.swift */,
 			);
 			path = UdacityResponses;
 			sourceTree = "<group>";
@@ -204,7 +216,11 @@
 				FF6B30BC291AC087000C997A /* AppDelegate.swift in Sources */,
 				FF6B30BE291AC087000C997A /* SceneDelegate.swift in Sources */,
 				FF1C08CF291B09B400EEC604 /* UdacityResponse.swift in Sources */,
+				FFA98775292C2B6800ECF7BC /* getStudentLocationResponse.swift in Sources */,
 				FF0A748D2926C04800EEBA4D /* loginSucessResponse.swift in Sources */,
+				FFA98777292C778700ECF7BC /* AddLocationViewController.swift in Sources */,
+				FFD04ED1292BE59C00C5ADE8 /* TableViewController.swift in Sources */,
+				FFB8D290292BE27B00B49A37 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

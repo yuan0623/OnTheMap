@@ -9,16 +9,20 @@ import Foundation
 
 class UdacityClient{
     static let apiKey = ""
-    
+    //var studentsLocaiton:getStudentsLocaitonResponse.results
+    static var studentsLocaiton: getStudentsLocaitonResponse = getStudentsLocaitonResponse(results: [])
     struct Auth{
         static var sessionID = ""
     }
     enum Endpoints{
         case login
-        
+        case logout
+        case getStudentLocation
         var stringValue: String{
             switch self{
             case .login: return "https://onthemap-api.udacity.com/v1/session"
+            case .logout: return "https://onthemap-api.udacity.com/v1/session"
+            case .getStudentLocation: return "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt"
             }
         }
         var url: URL {
@@ -59,7 +63,7 @@ class UdacityClient{
             catch{
                 do{
                     let responseObject = try decoder.decode(loginFailResponse.self, from: newData)
-
+                    
                     DispatchQueue.main.async {
                         completion(false,responseObject)
                     }
@@ -75,6 +79,66 @@ class UdacityClient{
         task.resume()
         
     }
+    
+    class func logout(completion:@escaping (Bool,Error?)->Void){
+        var request = URLRequest(url: UdacityClient.Endpoints.logout.url)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+          if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+          request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+          if error != nil { // Handle error…
+              completion(false,error)
+              return
+          }
+        
+          let range = 5..<data!.count
+          let newData = data?.subdata(in: range) /* subset response data! */
+          completion(true,nil)
+          print(String(data: newData!, encoding: .utf8)!)
+        }
+        task.resume()
+        
+        
+                                 
+    }
+    
+    class func getStudentsLocation(completion: @escaping (getStudentsLocaitonResponse?, Error?) -> Void){
+        var request = URLRequest(url: UdacityClient.Endpoints.getStudentLocation.url)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            
+            guard let data = data else{
+                DispatchQueue.main.async{
+                    completion(nil,error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do{
+                let responseObject = try decoder.decode(getStudentsLocaitonResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(responseObject,nil)
+                }
+                self.studentsLocaiton = responseObject
+            }
+            catch{
+                print("student location didn't parsed.")
+                DispatchQueue.main.async {
+                    completion(nil,error)
+                }
+            }
+        }
+        task.resume()
+        
+    }
+    
     
     class func taskForPOSTRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, completion: @escaping (ResponseType?, Error?) -> Void){
         var request = URLRequest(url:url)
