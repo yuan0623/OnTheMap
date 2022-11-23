@@ -21,6 +21,7 @@
 		FFA98777292C778700ECF7BC /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA98776292C778700ECF7BC /* AddLocationViewController.swift */; };
 		FFB8D290292BE27B00B49A37 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8D28F292BE27B00B49A37 /* MapViewController.swift */; };
 		FFD04ED1292BE59C00C5ADE8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD04ED0292BE59C00C5ADE8 /* TableViewController.swift */; };
+		FFD9E256292E9B25002D84E4 /* InformationPosttViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD9E255292E9B25002D84E4 /* InformationPosttViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		FFA98776292C778700ECF7BC /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		FFB8D28F292BE27B00B49A37 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FFD04ED0292BE59C00C5ADE8 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		FFD9E255292E9B25002D84E4 /* InformationPosttViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPosttViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				FFB8D28F292BE27B00B49A37 /* MapViewController.swift */,
 				FFD04ED0292BE59C00C5ADE8 /* TableViewController.swift */,
 				FFA98776292C778700ECF7BC /* AddLocationViewController.swift */,
+				FFD9E255292E9B25002D84E4 /* InformationPosttViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			files = (
 				FF1C08CD291AF9E000EEC604 /* UdacityClient.swift in Sources */,
 				FF6B30C0291AC087000C997A /* LoginViewController.swift in Sources */,
+				FFD9E256292E9B25002D84E4 /* InformationPosttViewController.swift in Sources */,
 				FF0A748B2926BE0500EEBA4D /* loginFailResponse.swift in Sources */,
 				FF6B30BC291AC087000C997A /* AppDelegate.swift in Sources */,
 				FF6B30BE291AC087000C997A /* SceneDelegate.swift in Sources */,

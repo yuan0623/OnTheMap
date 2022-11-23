@@ -34,9 +34,10 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     @IBAction func pressAddLocation(_ sender: Any) {
-        print("add button pressed")
-        let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-        self.navigationController?.pushViewController(addLocationViewController, animated: true)
+        //print("add button pressed")
+        //let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+        //self.navigationController?.pushViewController(addLocationViewController, animated: true)
+        self.performSegue(withIdentifier: "AddLocation", sender: nil)
     }
     
     /*

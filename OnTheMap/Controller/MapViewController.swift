@@ -49,9 +49,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func pressAddLocation(_ sender: Any) {
-        print("add location pressed")
-        let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-        self.navigationController?.pushViewController(addLocationViewController, animated: true)
+        //print("add location pressed")
+        //let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+        //self.navigationController?.pushViewController(addLocationViewController, animated: true)
+        self.performSegue(withIdentifier: "AddLocation", sender: nil)
     }
     
     
