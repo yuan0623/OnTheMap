@@ -16,6 +16,7 @@ class AddLocationViewController: UIViewController {
     
     @IBOutlet weak var addButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
@@ -60,6 +61,7 @@ class AddLocationViewController: UIViewController {
     }
     
     func forwardGeocoding() {
+        setActivity(activity: true)
             let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(targetLocation, completionHandler: { [self] (placemarks, error) in
                 if error != nil {
@@ -78,6 +80,7 @@ class AddLocationViewController: UIViewController {
                     print("\nlat: \(coordinate.latitude), long: \(coordinate.longitude)")
                     self.targetCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
                     self.addPin()
+                    setActivity(activity: false)
                 }
                 else
                 {
@@ -109,6 +112,15 @@ class AddLocationViewController: UIViewController {
         alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
         show(alertVC,sender: nil)
         
+    }
+    
+    func setActivity(activity:Bool){
+        if activity{
+            self.activityIndicator.startAnimating()
+        }
+        else{
+            self.activityIndicator.stopAnimating()
+        }
     }
 
 }

@@ -21,14 +21,14 @@ class UdacityClient{
     enum Endpoints{
         case login
         case logout
-        case getStudentLocation
+        case getStudentLocation(Int)
         case postStudentLocation
         case getUserPublicData(String)
         var stringValue: String{
             switch self{
             case .login: return "https://onthemap-api.udacity.com/v1/session"
             case .logout: return "https://onthemap-api.udacity.com/v1/session"
-            case .getStudentLocation: return "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt"
+            case .getStudentLocation(let limit): return "https://onthemap-api.udacity.com/v1/StudentLocation??limit=\(limit)"
             case .postStudentLocation: return "https://onthemap-api.udacity.com/v1/StudentLocation"
             case . getUserPublicData(let userId): return "https://onthemap-api.udacity.com/v1/users/\(userId)"
             }
@@ -156,7 +156,7 @@ class UdacityClient{
     }
     
     class func getStudentsLocation(completion: @escaping (getStudentsLocaitonResponse?, Error?) -> Void){
-        var request = URLRequest(url: UdacityClient.Endpoints.getStudentLocation.url)
+        var request = URLRequest(url: UdacityClient.Endpoints.getStudentLocation(100).url)
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
             

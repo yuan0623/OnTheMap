@@ -236,23 +236,29 @@
                                     <action selector="pressDismissButton:" destination="l7w-8b-Lc5" eventType="touchUpInside" id="dxe-N7-sCc"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bqz-i0-ebP">
+                                <rect key="frame" x="186" y="340" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bCE-ua-MjK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hCb-82-mvb" firstAttribute="top" secondItem="fJV-wX-f6I" secondAttribute="bottom" constant="40" id="6t5-7I-tq5"/>
+                            <constraint firstItem="bqz-i0-ebP" firstAttribute="top" secondItem="fJV-wX-f6I" secondAttribute="bottom" constant="-240" id="8jh-TN-53B"/>
                             <constraint firstItem="bCE-ua-MjK" firstAttribute="top" secondItem="fJV-wX-f6I" secondAttribute="top" constant="59" id="IDu-7v-06e"/>
                             <constraint firstItem="7UH-bQ-DoG" firstAttribute="leading" secondItem="bCE-ua-MjK" secondAttribute="leading" constant="167" id="JTc-LE-EHO"/>
                             <constraint firstItem="bCE-ua-MjK" firstAttribute="trailing" secondItem="7UH-bQ-DoG" secondAttribute="trailing" constant="167" id="QGA-RV-a68"/>
                             <constraint firstItem="hCb-82-mvb" firstAttribute="leading" secondItem="bCE-ua-MjK" secondAttribute="leading" constant="151" id="WfY-NS-eAn"/>
                             <constraint firstItem="bCE-ua-MjK" firstAttribute="trailing" secondItem="fJV-wX-f6I" secondAttribute="trailing" id="bNX-LP-VKR"/>
                             <constraint firstItem="bCE-ua-MjK" firstAttribute="bottom" secondItem="7UH-bQ-DoG" secondAttribute="bottom" constant="68" id="fwR-Q2-CTn"/>
+                            <constraint firstItem="fJV-wX-f6I" firstAttribute="leading" secondItem="bqz-i0-ebP" secondAttribute="trailing" constant="-206" id="jwY-2S-Hqp"/>
                             <constraint firstItem="fJV-wX-f6I" firstAttribute="leading" secondItem="bCE-ua-MjK" secondAttribute="leading" id="lZ7-46-QzC"/>
                             <constraint firstItem="bCE-ua-MjK" firstAttribute="trailing" secondItem="hCb-82-mvb" secondAttribute="trailing" constant="152" id="pNP-YW-Z8T"/>
                             <constraint firstItem="7UH-bQ-DoG" firstAttribute="top" secondItem="hCb-82-mvb" secondAttribute="bottom" constant="25" id="yiB-LK-rZK"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="bqz-i0-ebP" id="mHq-ck-8jY"/>
                         <outlet property="addButton" destination="7UH-bQ-DoG" id="aXl-a3-msI"/>
                         <outlet property="dismissButton" destination="hCb-82-mvb" id="JZm-7U-SgQ"/>
                         <outlet property="mapView" destination="fJV-wX-f6I" id="xUa-4s-m8b"/>

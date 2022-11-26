@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mapView.removeAnnotations(annotations)
         UdacityClient.getStudentsLocation(completion: handleGetStudentsResponse(studentsLocation:error:))
         // Do any additional setup after loading the view.
         configureNavigationItems()
@@ -96,7 +97,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             self.mapView.addAnnotations(annotations)
         }
         else{
-            
+            showAlert(title:"Error", message:"Cannot obtain student info")
         }
         
     }
@@ -130,6 +131,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("pin is tabed")
         if control == view.rightCalloutAccessoryView {
             if let toOpen = view.annotation?.subtitle! {
                 UIApplication.shared.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
@@ -144,6 +146,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    func showAlert(title:String, message:String){
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
+        show(alertVC,sender: nil)
+        
+    }
     
     
     

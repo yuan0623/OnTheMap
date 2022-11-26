@@ -56,7 +56,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         }
         else{
-            showLogoutFailure(message: error!.localizedDescription)
+            showAlert(title: "Error", message: error!.localizedDescription)
         }
     }
     
@@ -90,8 +90,26 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func showLogoutFailure(message:String){
-        let alertVC = UIAlertController(title: "Logout Failed", message: message, preferredStyle: .alert)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let studentLocation = UdacityClient.studentsLocaiton.results[(indexPath as NSIndexPath).row]
+        
+        let toOpen = studentLocation.mediaURL
+        
+        
+        let toOpenURL = try? URL(string: toOpen)
+        print(toOpenURL)
+        if let toOpenURL = toOpenURL{
+            UIApplication.shared.open(toOpenURL, options: [:], completionHandler: nil)
+        }
+        else{
+            //showAlert(title:"No URL", message:"This user has no media URL")
+        }
+        
+
+    }
+    
+    func showAlert(title:String, message:String){
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
         show(alertVC,sender: nil)
         
