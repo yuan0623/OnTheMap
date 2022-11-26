@@ -9,6 +9,9 @@ import Foundation
 
 class UdacityClient{
     static let apiKey = ""
+    static var firstName = ""
+    static var lastName = ""
+    static var userId = ""
     //var studentsLocaiton:getStudentsLocaitonResponse.results
     static var studentsLocaiton: getStudentsLocaitonResponse = getStudentsLocaitonResponse(results: [])
     struct Auth{
@@ -18,11 +21,15 @@ class UdacityClient{
         case login
         case logout
         case getStudentLocation
+        case postStudentLocation
+        case getUserPublicData(String)
         var stringValue: String{
             switch self{
             case .login: return "https://onthemap-api.udacity.com/v1/session"
             case .logout: return "https://onthemap-api.udacity.com/v1/session"
             case .getStudentLocation: return "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt"
+            case .postStudentLocation: return "https://onthemap-api.udacity.com/v1/StudentLocation"
+            case . getUserPublicData(let userId): return "https://onthemap-api.udacity.com/v1/users/\(userId)"
             }
         }
         var url: URL {
@@ -54,6 +61,7 @@ class UdacityClient{
             do{
                 let responseObject = try decoder.decode(loginSucessResponse.self, from: newData)
                 Auth.sessionID = responseObject.session.id
+                userId = username
                 print(responseObject.session.id)
                 DispatchQueue.main.async {
                     completion(true,nil)
@@ -109,6 +117,39 @@ class UdacityClient{
                                  
     }
     
+    class func getUserPublicData(userId:String,completion: @escaping (Bool, Error?) -> Void){
+        let request = URLRequest(url: UdacityClient.Endpoints.getUserPublicData(userId).url)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            guard let data = data else{
+                DispatchQueue.main.async{
+                    completion(false,error)
+                }
+                return
+            }
+            let range = 5..<data.count
+            let newData = data.subdata(in: range) /* subset response data! */
+            let decoder = JSONDecoder()
+            do{
+                let responseObject = try decoder.decode(getUserPublicDataResponse.self, from: newData)
+                firstName = responseObject.firstName
+                lastName = responseObject.lastName
+                DispatchQueue.main.async {
+                    completion(true,nil)
+                }
+                
+            }
+            catch{
+                DispatchQueue.main.async{
+                completion(false,error)
+                }
+            }
+            
+            //print(String(data: newData, encoding: .utf8)!)
+        }
+        task.resume()
+    }
+    
     class func getStudentsLocation(completion: @escaping (getStudentsLocaitonResponse?, Error?) -> Void){
         var request = URLRequest(url: UdacityClient.Endpoints.getStudentLocation.url)
         let session = URLSession.shared
@@ -139,6 +180,37 @@ class UdacityClient{
         
     }
     
+    func postStudentLocation(mapString:String, mediaURL:URL,latitude:Double, longtitude:Double,completion: @escaping (postStudentLocationResponse?, Error?) -> Void){
+        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \"\(latitude)\", \"longitude\": \"\(longtitude)\"}".data(using: .utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            guard let data = data else{
+                DispatchQueue.main.async{
+                    completion(nil,error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do{
+                let responseObject = try decoder.decode(postStudentLocationResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(responseObject,nil)
+                }
+            }
+            catch{
+                print("student location didn't parsed.")
+                DispatchQueue.main.async {
+                    completion(nil,error)
+                }
+            }
+            
+            print(String(data: data, encoding: .utf8)!)
+        }
+        task.resume()
+    }
     
     class func taskForPOSTRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, completion: @escaping (ResponseType?, Error?) -> Void){
         var request = URLRequest(url:url)

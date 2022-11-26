@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class InformationPosttViewController: UIViewController {
+class InformationPostViewController: UIViewController {
 
     @IBOutlet weak var addressTextfield: UITextField!
     
@@ -23,10 +23,23 @@ class InformationPosttViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "findLocation"{
+            let AddLocationViewController = segue.destination as! AddLocationViewController
+            
+            let targetLocation = sender as! String
+            AddLocationViewController.targetLocation = targetLocation
+        }
+    }
     
     @IBAction func pressFindLocationButton(_ sender: Any) {
-        let a = MKLocalSearch
+        if let targetLocation = addressTextfield.text{
+            let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
+            self.performSegue(withIdentifier: "findLocation", sender: targetLocation)
+        }
+        
+        //self.navigationController?.pushViewController(addLocationViewController, animated: true)
+        
     }
     
     /*

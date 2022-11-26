@@ -34,10 +34,10 @@ class LoginViewController: UIViewController {
         print(sucess)
         if sucess{
             print("login sucessfully")
+            UdacityClient.getUserPublicData(userId: self.usernameTextField.text ?? "", completion: handleGetUserPublicDataResponse(sucess: error:))
+            
             //TMDBClient.createSessionID(completion: handleSessionResponse(sucess:error:))
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "completeLogin", sender: nil)
-            }
+            
             
         }
         else
@@ -47,6 +47,17 @@ class LoginViewController: UIViewController {
             print("login fails")
         }
         
+    }
+    func handleGetUserPublicDataResponse(sucess:Bool,error:Error?){
+        if sucess{
+            print("get user public data sucessfully")
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "completeLogin", sender: nil)
+            }
+        }
+        else{
+            showLoginFailure(message:"fail ut retrive user public data")
+        }
     }
     
     
@@ -64,8 +75,8 @@ class LoginViewController: UIViewController {
     }
     
     func showLoginFailure(message:String){
-        let alertVC = UIAlertController(title: "Login Failed haha", message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK xixi", style: .default,handler:nil))
+        let alertVC = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
         show(alertVC,sender: nil)
         
     }

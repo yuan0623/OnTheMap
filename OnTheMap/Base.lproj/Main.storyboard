@@ -106,7 +106,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="a2L-F9-Jb9" id="865-yE-Ift"/>
-                        <segue destination="VKU-8W-lA6" kind="presentation" identifier="AddLocation" id="2Wb-bJ-lLn"/>
+                        <segue destination="VKU-8W-lA6" kind="presentation" identifier="PostInformation" id="2Wb-bJ-lLn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjC-jP-wmh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -130,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="1731" y="-654"/>
         </scene>
-        <!--Information Postt View Controller-->
+        <!--Information Post View Controller-->
         <scene sceneID="oVF-XI-UXR">
             <objects>
-                <viewController storyboardIdentifier="AddLocationViewController" id="VKU-8W-lA6" customClass="InformationPosttViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InformationPostViewController" id="VKU-8W-lA6" customClass="InformationPostViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lBQ-5n-mXa">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,12 +187,80 @@
                         <outlet property="addressTextfield" destination="mac-oG-czJ" id="NYz-wN-XZ4"/>
                         <outlet property="findLocationButton" destination="jSY-hW-UYk" id="KXz-xS-vG4"/>
                         <outlet property="mediaLinkTextField" destination="zJ8-iW-eWc" id="4Aw-Rg-VrE"/>
+                        <segue destination="l7w-8b-Lc5" kind="presentation" identifier="findLocation" id="c4A-dq-sbx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnK-Ig-dam" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="q0b-Tg-wQU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3668" y="-250"/>
+        </scene>
+        <!--Add Location View Controller-->
+        <scene sceneID="mHg-TC-Mtg">
+            <objects>
+                <viewController storyboardIdentifier="AddLocationViewController" id="l7w-8b-Lc5" customClass="AddLocationViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kZ8-vv-A7b">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJV-wX-f6I">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="580"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="580" id="o5k-pt-qri"/>
+                                </constraints>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7UH-bQ-DoG">
+                                <rect key="frame" x="167" y="680" width="59" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="ADD">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="pressAddButton:" destination="l7w-8b-Lc5" eventType="touchUpInside" id="rvk-cz-fki"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCb-82-mvb">
+                                <rect key="frame" x="151" y="620" width="90" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="DISMISS">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="pressDismissButton:" destination="l7w-8b-Lc5" eventType="touchUpInside" id="dxe-N7-sCc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bCE-ua-MjK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hCb-82-mvb" firstAttribute="top" secondItem="fJV-wX-f6I" secondAttribute="bottom" constant="40" id="6t5-7I-tq5"/>
+                            <constraint firstItem="bCE-ua-MjK" firstAttribute="top" secondItem="fJV-wX-f6I" secondAttribute="top" constant="59" id="IDu-7v-06e"/>
+                            <constraint firstItem="7UH-bQ-DoG" firstAttribute="leading" secondItem="bCE-ua-MjK" secondAttribute="leading" constant="167" id="JTc-LE-EHO"/>
+                            <constraint firstItem="bCE-ua-MjK" firstAttribute="trailing" secondItem="7UH-bQ-DoG" secondAttribute="trailing" constant="167" id="QGA-RV-a68"/>
+                            <constraint firstItem="hCb-82-mvb" firstAttribute="leading" secondItem="bCE-ua-MjK" secondAttribute="leading" constant="151" id="WfY-NS-eAn"/>
+                            <constraint firstItem="bCE-ua-MjK" firstAttribute="trailing" secondItem="fJV-wX-f6I" secondAttribute="trailing" id="bNX-LP-VKR"/>
+                            <constraint firstItem="bCE-ua-MjK" firstAttribute="bottom" secondItem="7UH-bQ-DoG" secondAttribute="bottom" constant="68" id="fwR-Q2-CTn"/>
+                            <constraint firstItem="fJV-wX-f6I" firstAttribute="leading" secondItem="bCE-ua-MjK" secondAttribute="leading" id="lZ7-46-QzC"/>
+                            <constraint firstItem="bCE-ua-MjK" firstAttribute="trailing" secondItem="hCb-82-mvb" secondAttribute="trailing" constant="152" id="pNP-YW-Z8T"/>
+                            <constraint firstItem="7UH-bQ-DoG" firstAttribute="top" secondItem="hCb-82-mvb" secondAttribute="bottom" constant="25" id="yiB-LK-rZK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addButton" destination="7UH-bQ-DoG" id="aXl-a3-msI"/>
+                        <outlet property="dismissButton" destination="hCb-82-mvb" id="JZm-7U-SgQ"/>
+                        <outlet property="mapView" destination="fJV-wX-f6I" id="xUa-4s-m8b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cBP-Gi-Zdw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4510.6870229007636" y="-250"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Nu1-ey-e1a">
@@ -264,7 +332,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="PQV-c5-bzB" id="0sN-9d-o2Z"/>
-                        <segue destination="VKU-8W-lA6" kind="presentation" identifier="AddLocation" id="ecG-S1-JGb"/>
+                        <segue destination="VKU-8W-lA6" kind="presentation" identifier="PostInformation" id="ecG-S1-JGb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0T-7b-Moh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

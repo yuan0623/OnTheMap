@@ -18,7 +18,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("map view loaded!")
         UdacityClient.getStudentsLocation(completion: handleGetStudentsResponse(studentsLocation:error:))
         // Do any additional setup after loading the view.
         configureNavigationItems()
@@ -49,10 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func pressAddLocation(_ sender: Any) {
-        //print("add location pressed")
-        //let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-        //self.navigationController?.pushViewController(addLocationViewController, animated: true)
-        self.performSegue(withIdentifier: "AddLocation", sender: nil)
+        self.performSegue(withIdentifier: "PostInformation", sender: nil)
     }
     
     
