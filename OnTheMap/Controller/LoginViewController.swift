@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -78,6 +79,16 @@ class LoginViewController: UIViewController {
         let alertVC = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
         show(alertVC,sender: nil)
+        
+    }
+    
+    func handleGetStudentsResponse(studentsLocation: getStudentsLocaitonResponse?, error: Error?)->Void{
+        if let studentsLocation = studentsLocation{
+            print("get students location sucessfully")
+        }
+        else{
+            
+        }
         
     }
     

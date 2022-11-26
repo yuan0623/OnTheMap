@@ -9,6 +9,6 @@ import Foundation
 
 
 struct postStudentLocationResponse:Codable{
-    let createAt: String
+    let createdAt: String
     let objectId: String
 }

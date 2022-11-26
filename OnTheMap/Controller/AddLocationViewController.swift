@@ -21,6 +21,7 @@ class AddLocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        buttonConfig(set: true)
         forwardGeocoding()
         
         // Do any additional setup after loading the view.
@@ -28,6 +29,17 @@ class AddLocationViewController: UIViewController {
     
     
     @IBAction func pressAddButton(_ sender: Any) {
+        buttonConfig(set: false)
+        UdacityClient.postStudentLocation(mapString: targetLocation, mediaURL: mediaURL, coordinate: targetCoordinate, completion: handlePostStudentLocationResponse(response: error:))
+    }
+    
+    func handlePostStudentLocationResponse(response:postStudentLocationResponse?,error:Error?){
+        if let response = response{
+            showAlertMessage(title: "Info is added!", message: "objectId:"+response.objectId+"\n"+"createdAt:"+response.createdAt)
+        }
+        else if let error = error{
+            showAlertMessage(title: "Warning!",message: error.localizedDescription)
+        }
         
     }
     
@@ -51,7 +63,7 @@ class AddLocationViewController: UIViewController {
             let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(targetLocation, completionHandler: { [self] (placemarks, error) in
                 if error != nil {
-                    showFailureMessage(message: "GeoCoding fail")
+                    showAlertMessage(title: "Warning!", message: "GeoCoding fail")
                     return
                 }
                 
@@ -69,7 +81,7 @@ class AddLocationViewController: UIViewController {
                 }
                 else
                 {
-                    showFailureMessage(message: "No Matching Location Found")
+                    showAlertMessage(title: "Warning!", message: "No Matching Location Found")
                 }
             })
         }
@@ -83,8 +95,17 @@ class AddLocationViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func showFailureMessage(message:String){
-        let alertVC = UIAlertController(title: "Fail to find loction", message: message, preferredStyle: .alert)
+    func buttonConfig(set:Bool){
+        if set{
+            addButton.isEnabled = true
+        }
+        else{
+            addButton.isEnabled = false
+        }
+    }
+    func showAlertMessage(title:String, message:String){
+        
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
         show(alertVC,sender: nil)
         

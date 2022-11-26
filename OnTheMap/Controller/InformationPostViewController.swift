@@ -27,19 +27,31 @@ class InformationPostViewController: UIViewController {
         if segue.identifier == "findLocation"{
             let AddLocationViewController = segue.destination as! AddLocationViewController
             
-            let targetLocation = sender as! String
+            let sendingInfo = sender as! [String]
+            
+            let targetLocation = sendingInfo[0]
             AddLocationViewController.targetLocation = targetLocation
+            let mediaURL = sendingInfo[1]
+            AddLocationViewController.mediaURL = mediaURL
         }
     }
     
     @IBAction func pressFindLocationButton(_ sender: Any) {
+        var sendingMessage:[String]
         if let targetLocation = addressTextfield.text{
+            if let mediaLink = mediaLinkTextField.text{
+                sendingMessage = [targetLocation,mediaLink]
+                
+            }
+            else{
+                sendingMessage = [targetLocation," "]
+            }
             let addLocationViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationViewController") as! AddLocationViewController
-            self.performSegue(withIdentifier: "findLocation", sender: targetLocation)
+            self.performSegue(withIdentifier: "findLocation", sender: sendingMessage)
         }
         
-        //self.navigationController?.pushViewController(addLocationViewController, animated: true)
         
+        //self.navigationController?.pushViewController(addLocationViewController, animated: true)
     }
     
     /*

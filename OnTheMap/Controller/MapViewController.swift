@@ -36,15 +36,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private func configureNavigationItems(){
         self.navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressAddLocation)),
-            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
+            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(pressRefresh))
         ]
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(pressLogOut))
+    }
+    
+    @IBAction func pressRefresh(_ sender: Any) {
+        UdacityClient.getStudentsLocation(completion: handleGetStudentsResponse(studentsLocation:error:))
     }
     
     
-
-    
     @IBAction func pressLogOut(_ sender: Any) {
         UdacityClient.logout(completion: handleLogoutResponse(sucess:error:))
+        self.dismiss(animated: true)
     }
     
     @IBAction func pressAddLocation(_ sender: Any) {
@@ -58,7 +62,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
         }
         else{
-            
+            showLogoutFailure(message: error!.localizedDescription)
         }
     }
     
@@ -132,6 +136,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 app.openURL(URL(string: toOpen)!)
             }
         }
+    }
+    
+    func showLogoutFailure(message:String){
+        let alertVC = UIAlertController(title: "Logout Failed", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
+        show(alertVC,sender: nil)
+        
     }
     
     

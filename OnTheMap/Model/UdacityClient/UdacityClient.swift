@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class UdacityClient{
     static let apiKey = ""
@@ -102,13 +103,17 @@ class UdacityClient{
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
           if error != nil { // Handle error…
-              completion(false,error)
+              DispatchQueue.main.async{
+                  completion(false,error)
+              }
               return
           }
         
           let range = 5..<data!.count
           let newData = data?.subdata(in: range) /* subset response data! */
-          completion(true,nil)
+            DispatchQueue.main.async{
+                completion(true,nil)
+            }
           print(String(data: newData!, encoding: .utf8)!)
         }
         task.resume()
@@ -180,11 +185,15 @@ class UdacityClient{
         
     }
     
-    func postStudentLocation(mapString:String, mediaURL:URL,latitude:Double, longtitude:Double,completion: @escaping (postStudentLocationResponse?, Error?) -> Void){
+    class func postStudentLocation(mapString:String, mediaURL:String,coordinate:CLLocationCoordinate2D,completion: @escaping (postStudentLocationResponse?, Error?) -> Void){
+        
+        
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \"\(latitude)\", \"longitude\": \"\(longtitude)\"}".data(using: .utf8)
+        
+        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"\(UdacityClient.firstName)\", \"lastName\": \"\(UdacityClient.lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(coordinate.latitude), \"longitude\": \(coordinate.longitude)}".data(using: .utf8)
+        
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
             guard let data = data else{
@@ -201,7 +210,7 @@ class UdacityClient{
                 }
             }
             catch{
-                print("student location didn't parsed.")
+                print("json parse fail")
                 DispatchQueue.main.async {
                     completion(nil,error)
                 }
