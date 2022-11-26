@@ -131,9 +131,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-            let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.openURL(URL(string: toOpen)!)
+                UIApplication.shared.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
             }
         }
     }
