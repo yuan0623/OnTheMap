@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mapView.delegate = self
         self.mapView.removeAnnotations(annotations)
         UdacityClient.getStudentsLocation(completion: handleGetStudentsResponse(studentsLocation:error:))
         // Do any additional setup after loading the view.
@@ -69,7 +70,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func handleGetStudentsResponse(studentsLocation: getStudentsLocaitonResponse?, error: Error?)->Void{
         if let studentsLocation = studentsLocation{
-            print("get students location sucessfully")
+            debugPrint("get students location sucessfully")
             for studentLocation in studentsLocation.results{
                 // Notice that the float values are being used to create CLLocationDegree values.
                 //print(studentLocation.firstName)
@@ -112,10 +113,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         let reuseId = "pin"
         
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKMarkerAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
 
         if pinView == nil {
-            pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             //pinView!.pinColor = .red
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
@@ -132,9 +133,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("pin is tabed")
-        if control == view.rightCalloutAccessoryView {
-            if let toOpen = view.annotation?.subtitle! {
-                UIApplication.shared.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
+        DispatchQueue.main.async {
+            if control == view.rightCalloutAccessoryView {
+                if let toOpen = view.annotation?.subtitle{
+                    if let toOpen = toOpen{
+                        if let toOpenURL = URL(string:toOpen){
+                            UIApplication.shared.open(toOpenURL, options: [:], completionHandler: nil)
+                        }
+                        else{
+                            self.showAlert(title:"No URL", message:"This user has no media URL")
+                        }
+                    }
+                    else{
+                        self.showAlert(title:"No URL", message:"This user has no media URL")
+                    }
+                    
+                }
+                else{
+                    self.showAlert(title:"No URL", message:"This user has no media URL")
+                }
             }
         }
     }
@@ -149,7 +166,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func showAlert(title:String, message:String){
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
-        show(alertVC,sender: nil)
+        self.present(alertVC,animated: true)
         
     }
     

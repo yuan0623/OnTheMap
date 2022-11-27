@@ -28,7 +28,7 @@ class UdacityClient{
             switch self{
             case .login: return "https://onthemap-api.udacity.com/v1/session"
             case .logout: return "https://onthemap-api.udacity.com/v1/session"
-            case .getStudentLocation(let limit): return "https://onthemap-api.udacity.com/v1/StudentLocation??limit=\(limit)"
+            case .getStudentLocation(let limit): return "https://onthemap-api.udacity.com/v1/StudentLocation?limit=\(limit)&order=-updatedAt"
             case .postStudentLocation: return "https://onthemap-api.udacity.com/v1/StudentLocation"
             case . getUserPublicData(let userId): return "https://onthemap-api.udacity.com/v1/users/\(userId)"
             }

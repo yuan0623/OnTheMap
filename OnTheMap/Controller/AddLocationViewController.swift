@@ -61,10 +61,12 @@ class AddLocationViewController: UIViewController {
     }
     
     func forwardGeocoding() {
-        setActivity(activity: true)
-            let geocoder = CLGeocoder()
+        
+        let geocoder = CLGeocoder()
+        setActivity(activity: true) // this sets the activity indicator
         geocoder.geocodeAddressString(targetLocation, completionHandler: { [self] (placemarks, error) in
                 if error != nil {
+                    setActivity(activity: false)
                     showAlertMessage(title: "Warning!", message: "GeoCoding fail")
                     return
                 }
@@ -84,6 +86,7 @@ class AddLocationViewController: UIViewController {
                 }
                 else
                 {
+                    setActivity(activity: false)
                     showAlertMessage(title: "Warning!", message: "No Matching Location Found")
                 }
             })

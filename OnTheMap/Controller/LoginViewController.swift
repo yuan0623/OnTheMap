@@ -20,21 +20,20 @@ class LoginViewController: UIViewController {
         usernameTextField.text = ""
         passwordTextField.text = ""
         activityIndicator.isHidden = true
-        print("log in loaded.")
+        debugPrint("log in loaded.")
     }
     
 
     @IBAction func loginTapped(_ sender: Any) {
         setLogIn(logingIn: true)
         UdacityClient.login(username: self.usernameTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: handleLoginResponse(sucess:error:))
-        print("tapped")
+        debugPrint("tapped")
     }
     
     func handleLoginResponse(sucess:Bool,error:Error?){
         setLogIn(logingIn: false)
-        print(sucess)
         if sucess{
-            print("login sucessfully")
+            debugPrint("login sucessfully")
             UdacityClient.getUserPublicData(userId: self.usernameTextField.text ?? "", completion: handleGetUserPublicDataResponse(sucess: error:))
             
             //TMDBClient.createSessionID(completion: handleSessionResponse(sucess:error:))
@@ -44,8 +43,6 @@ class LoginViewController: UIViewController {
         else
         {
             showLoginFailure(message: error?.localizedDescription ?? "")
-
-            print("login fails")
         }
         
     }
@@ -84,7 +81,7 @@ class LoginViewController: UIViewController {
     
     func handleGetStudentsResponse(studentsLocation: getStudentsLocaitonResponse?, error: Error?)->Void{
         if let studentsLocation = studentsLocation{
-            print("get students location sucessfully")
+            debugPrint("get students location sucessfully")
         }
         else{
             

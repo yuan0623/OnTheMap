@@ -43,7 +43,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func handleGetStudentsResponse(studentsLocation: getStudentsLocaitonResponse?, error: Error?)->Void{
         if let studentsLocation = studentsLocation{
-            print("get students location sucessfully")
+            debugPrint("get students location sucessfully")
         }
         else{
             
@@ -97,12 +97,12 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         
         let toOpenURL = try? URL(string: toOpen)
-        print(toOpenURL)
+        //debugPrint(toOpenURL)
         if let toOpenURL = toOpenURL{
             UIApplication.shared.open(toOpenURL, options: [:], completionHandler: nil)
         }
         else{
-            //showAlert(title:"No URL", message:"This user has no media URL")
+            showAlert(title:"No URL", message:"This user has no media URL")
         }
         
 
@@ -111,7 +111,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     func showAlert(title:String, message:String){
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default,handler:nil))
-        show(alertVC,sender: nil)
+        self.present(alertVC,animated: true)
         
     }
 
